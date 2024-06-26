@@ -26,6 +26,7 @@ var SearchInput = function (_a) {
                     gap: 2,
                     "&.MuiInputAdornment-root": {
                         height: "auto",
+                        minWidth: "fit-content",
                     },
                 }}>
             {loading ? (<CircularProgress color="primary" size={20} sx={{

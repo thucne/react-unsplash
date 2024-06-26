@@ -63,6 +63,7 @@ const SearchInput = ({
               gap: 2,
               "&.MuiInputAdornment-root": {
                 height: "auto",
+                minWidth: "fit-content",
               },
             }}
           >
