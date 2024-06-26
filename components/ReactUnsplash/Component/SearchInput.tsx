@@ -61,6 +61,9 @@ const SearchInput = ({
               display: "flex",
               alignItems: "center",
               gap: 2,
+              "&.MuiInputAdornment-root": {
+                height: "auto",
+              },
             }}
           >
             {loading ? (
@@ -75,7 +78,7 @@ const SearchInput = ({
                 }}
               />
             ) : (
-              <SearchIcon />
+              <SearchIcon color="primary" />
             )}
             <Image
               src={UnsplashFull}

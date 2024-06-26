@@ -24,13 +24,16 @@ var SearchInput = function (_a) {
                     display: "flex",
                     alignItems: "center",
                     gap: 2,
+                    "&.MuiInputAdornment-root": {
+                        height: "auto",
+                    },
                 }}>
             {loading ? (<CircularProgress color="primary" size={20} sx={{
                         "& svg": {
                             width: 20,
                             height: 20,
                         },
-                    }}/>) : (<SearchIcon />)}
+                    }}/>) : (<SearchIcon color="primary"/>)}
             <Image src={UnsplashFull} alt="Unsplash Logo" width={search ? 20 : 87.63} height={20} style={{
                     objectFit: "cover",
                     objectPosition: "left",

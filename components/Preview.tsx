@@ -6,11 +6,19 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Typography,
+  CssBaseline
 } from "@mui/material";
 import { debounce } from "lodash";
 import useSWR from "swr";
 import Image from "next/image";
 import { blurHashToBase64 } from "./ReactUnsplash/Component/helpers";
+import { CacheProvider } from "@emotion/react";
+import {
+  ThemeProvider,
+  useTheme,
+  StyledEngineProvider,
+} from "@mui/material/styles";
+import createCache from "@emotion/cache";
 
 const fetcher = (url: string) =>
   fetch(url, { cache: "force-cache" }).then((res) => res.json());
@@ -23,7 +31,14 @@ type UnsplashObj = {
   total: number;
 };
 
+const cache = createCache({
+  key: "css",
+  prepend: true,
+});
+
 const Preview = () => {
+  const theme = useTheme();
+
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [results, setResults] = useState<any[]>([]);
@@ -98,67 +113,74 @@ const Preview = () => {
   };
 
   return (
-    <div className="w-screen flex pb-10 pt-2 px-2 justify-center">
-      <div className="w-full max-w-[700px] flex items-center flex-col">
-        <Typography variant="h5" className="mb-4 font-semibold">
-          Display Mode
-        </Typography>
-        <ToggleButtonGroup
-          color="primary"
-          value={modeSwitch}
-          exclusive
-          onChange={handleChange}
-          aria-label="Display Mode"
-          size="small"
-          className="mb-4"
-        >
-          <ToggleButton value="normal">Normal</ToggleButton>
-          <ToggleButton value="popup">Pop Up</ToggleButton>
-        </ToggleButtonGroup>
-        {modeSwitch === "popup" && (
-          <Button
-            className="normal-case mb-4"
-            fullWidth
-            variant="contained"
-            onClick={() => setOpen(true)}
-          >
-            Open
-          </Button>
-        )}
-        <ReactUnsplash
-          open={open}
-          loading={isLoading}
-          onSearch={onSearch}
-          onCommit={onCommit}
-          onSelect={onSelect}
-          onClose={handleClose}
-          images={results}
-          handleLoadMore={handleNextPage}
-          hasMore={hasNext}
-          displayMode={modeSwitch}
-          width={700}
-        />
-
-        {selectedImage && (
-          <div className="mt-4 border w-full">
-            <Image
-              src={selectedImage.urls.regular}
-              alt={selectedImage.alt_description}
-              width={700}
-              height={(700 * selectedImage.height) / selectedImage.width}
-              className="hover:brightness-75 transition-[filter] cursor-pointer"
-              onClick={() => setSelectedImage(null)}
-              blurDataURL={blurHashToBase64(
-                selectedImage.blur_hash,
-                700,
-                (700 * selectedImage.height) / selectedImage.width
+    <StyledEngineProvider injectFirst>
+      <CacheProvider value={cache}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <div className="w-screen flex pb-10 pt-2 px-2 justify-center">
+            <div className="w-full max-w-[700px] flex items-center flex-col">
+              <Typography variant="h5" className="mb-4 font-semibold">
+                Display Mode
+              </Typography>
+              <ToggleButtonGroup
+                color="primary"
+                value={modeSwitch}
+                exclusive
+                onChange={handleChange}
+                aria-label="Display Mode"
+                size="small"
+                className="mb-4"
+              >
+                <ToggleButton value="normal">Normal</ToggleButton>
+                <ToggleButton value="popup">Pop Up</ToggleButton>
+              </ToggleButtonGroup>
+              {modeSwitch === "popup" && (
+                <Button
+                  className="normal-case mb-4"
+                  fullWidth
+                  variant="contained"
+                  onClick={() => setOpen(true)}
+                >
+                  Open
+                </Button>
               )}
-              placeholder="blur"
-            />
+              <ReactUnsplash
+                open={open}
+                loading={isLoading}
+                onSearch={onSearch}
+                onCommit={onCommit}
+                onSelect={onSelect}
+                onClose={handleClose}
+                images={results}
+                handleLoadMore={handleNextPage}
+                hasMore={hasNext}
+                displayMode={modeSwitch}
+                width={700}
+              />
+
+              {selectedImage && (
+                <div className="mt-4 border w-full">
+                  <Image
+                    src={selectedImage.urls.regular}
+                    alt={selectedImage.alt_description}
+                    width={700}
+                    height={(700 * selectedImage.height) / selectedImage.width}
+                    className="hover:brightness-75 transition-[filter] cursor-pointer"
+                    onClick={() => setSelectedImage(null)}
+                    blurDataURL={blurHashToBase64(
+                      selectedImage.blur_hash,
+                      700,
+                      (700 * selectedImage.height) / selectedImage.width
+                    )}
+                    placeholder="blur"
+                  />
+                </div>
+              )}
+            </div>
           </div>
-        )}
-      </div>
-    </div>
+        </ThemeProvider>
+      </CacheProvider>
+    </StyledEngineProvider>
   );
 };
 
