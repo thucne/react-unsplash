@@ -146,6 +146,9 @@ const SearchInput = ({
         "& .MuiInputBase-root": {
           fontSize: "1.2rem",
           paddingLeft: 0,
+          input: {
+            width: "auto",
+          },
         },
       }}
     />
