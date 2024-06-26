@@ -15,7 +15,7 @@ var Main = function (_a) {
         setSearch(search);
         onSearch === null || onSearch === void 0 ? void 0 : onSearch(search);
     };
-    return (<Paper variant="outlined" className="w-full">
+    return (<Paper variant="outlined" sx={{ width: "100%" }}>
       <Grid container spacing={1} disableEqualOverflow>
         <Grid xs={12}>
           <Box pt={1} px={1}>

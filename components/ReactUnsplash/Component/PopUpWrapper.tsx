@@ -10,9 +10,9 @@ const PopUpWrapper = (props: PopUpWrapperProps) => {
   const { children, ...rest } = props;
   return (
     <Dialog
-      className="w-full"
       maxWidth={false}
       sx={{
+        width: "100%",
         ".MuiPaper-root": {
           width: props.width ?? "auto",
           maxWidth: '100%'

@@ -14,7 +14,8 @@ import { Dialog } from "@mui/material";
 var PopUpWrapper = function (props) {
     var _a;
     var children = props.children, rest = __rest(props, ["children"]);
-    return (<Dialog className="w-full" maxWidth={false} sx={{
+    return (<Dialog maxWidth={false} sx={{
+            width: "100%",
             ".MuiPaper-root": {
                 width: (_a = props.width) !== null && _a !== void 0 ? _a : "auto",
                 maxWidth: '100%'

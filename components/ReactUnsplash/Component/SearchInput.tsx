@@ -5,6 +5,7 @@ import {
   InputAdornment,
   CircularProgress,
   Typography,
+  useTheme,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/SearchRounded";
 import Image from "next/image";
@@ -27,6 +28,8 @@ const SearchInput = ({
   handleClose = () => {},
   onCommit,
 }: SearchInputProps) => {
+  const theme = useTheme();
+
   return (
     <TextField
       autoFocus
@@ -53,15 +56,19 @@ const SearchInput = ({
         startAdornment: (
           <InputAdornment
             position="start"
-            sx={{ mr: 2 }}
-            className="flex items-center gap-2"
+            sx={{
+              mr: 2,
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+            }}
           >
             {loading ? (
               <CircularProgress
                 color="primary"
                 size={20}
                 sx={{
-                  svg: {
+                  "& svg": {
                     width: 20,
                     height: 20,
                   },
@@ -80,8 +87,13 @@ const SearchInput = ({
                 objectPosition: "left",
                 height: 20,
                 width: search ? 20 : 87.63,
+                transition: "width 0.3s",
+                // white
+                filter:
+                  theme.palette.mode === "dark"
+                    ? "brightness(0) invert(1)"
+                    : "none",
               }}
-              className="transition-[width]"
             />
           </InputAdornment>
         ),

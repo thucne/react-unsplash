@@ -84,24 +84,51 @@ var ImageList = function (_a) {
                     height: "".concat(((imgWidth || 200) * item.height) / item.width, "px !important"),
                     overflow: "hidden",
                 }}>
-            <Image src={item.urls.small} alt={item.alt_description} width={imgWidth || 200} height={((imgWidth || 200) * item.height) / item.width} style={{
+            <Box sx={{
+                    cursor: "pointer",
+                    ":hover": {
+                        filter: "brightness(0.75)",
+                    },
+                }}>
+              <Image src={item.urls.small} alt={item.alt_description} width={imgWidth || 200} height={((imgWidth || 200) * item.height) / item.width} style={{
                     width: "100%",
                     height: ((imgWidth || 200) * item.height) / item.width,
-                }} className="hover:brightness-75 transition-[filter] cursor-pointer" onClick={function () { return onSelect === null || onSelect === void 0 ? void 0 : onSelect(item); }} blurDataURL={blurHashToBase64(item.blur_hash, imgWidth || 200, ((imgWidth || 200) * item.height) / item.width)} placeholder="blur"/>
+                }} onClick={function () { return onSelect === null || onSelect === void 0 ? void 0 : onSelect(item); }} blurDataURL={blurHashToBase64(item.blur_hash, imgWidth || 200, ((imgWidth || 200) * item.height) / item.width)} placeholder="blur"/>
+            </Box>
             <Link href={(_b = (_a = item.user) === null || _a === void 0 ? void 0 : _a.links) === null || _b === void 0 ? void 0 : _b.html}>
-              <Typography variant="body2" className="absolute bottom-1 left-2 text-white hover:underline underline-offset-4 cursor-pointer">
+              <Typography variant="body2" sx={{
+                    position: "absolute",
+                    bottom: 4,
+                    left: 8,
+                    color: "white",
+                    cursor: "pointer",
+                    ":hover": {
+                        textDecoration: "underline",
+                        textUnderlineOffset: "4px",
+                    },
+                }}>
                 {(_c = item.user) === null || _c === void 0 ? void 0 : _c.name}
               </Typography>
             </Link>
           </ImageListItem>);
         })}
       </MuiImageList>
-      {loading && (<Box className="w-full flex justify-center mt-1">
+      {loading && (<Box sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                mt: 4,
+            }}>
           <Typography variant="body1" align="center">
             Loading...
           </Typography>
         </Box>)}
-      {hasMore && allowLoadMore && loadMode === "button" && (<Box className="w-full flex justify-center mt-1">
+      {hasMore && allowLoadMore && loadMode === "button" && (<Box sx={{
+                display: "flex",
+                justifyContent: "center",
+                mt: 4,
+                width: "100%",
+            }}>
           <Button disabled={loading} onClick={function () { return handleLoadMore === null || handleLoadMore === void 0 ? void 0 : handleLoadMore(); }} sx={{
                 textTransform: "none",
                 "&:hover": {

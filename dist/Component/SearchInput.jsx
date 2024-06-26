@@ -1,10 +1,11 @@
 import React from "react";
-import { TextField, InputAdornment, CircularProgress, Typography, } from "@mui/material";
+import { TextField, InputAdornment, CircularProgress, Typography, useTheme, } from "@mui/material";
 import SearchIcon from "@mui/icons-material/SearchRounded";
 import Image from "next/image";
 import UnsplashFull from "./Unsplash_Logo_Full.svg";
 var SearchInput = function (_a) {
     var search = _a.search, setSearch = _a.setSearch, loading = _a.loading, isPopUp = _a.isPopUp, _b = _a.handleClose, handleClose = _b === void 0 ? function () { } : _b, onCommit = _a.onCommit;
+    var theme = useTheme();
     return (<TextField autoFocus fullWidth variant="outlined" size="medium" placeholder="Search photos" value={search} onChange={function (e) {
             var val = e.target.value;
             // allow max 64 characters
@@ -18,9 +19,14 @@ var SearchInput = function (_a) {
                 onCommit === null || onCommit === void 0 ? void 0 : onCommit(search);
             }
         }} InputProps={{
-            startAdornment: (<InputAdornment position="start" sx={{ mr: 2 }} className="flex items-center gap-2">
+            startAdornment: (<InputAdornment position="start" sx={{
+                    mr: 2,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 2,
+                }}>
             {loading ? (<CircularProgress color="primary" size={20} sx={{
-                        svg: {
+                        "& svg": {
                             width: 20,
                             height: 20,
                         },
@@ -30,7 +36,12 @@ var SearchInput = function (_a) {
                     objectPosition: "left",
                     height: 20,
                     width: search ? 20 : 87.63,
-                }} className="transition-[width]"/>
+                    transition: "width 0.3s",
+                    // white
+                    filter: theme.palette.mode === "dark"
+                        ? "brightness(0) invert(1)"
+                        : "none",
+                }}/>
           </InputAdornment>),
             endAdornment: isPopUp ? (<InputAdornment position="end">
             <Typography variant="caption" component="p" sx={{

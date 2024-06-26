@@ -16,12 +16,11 @@ import Link from "next/link";
 import { blurHashToBase64 } from "./helpers";
 
 const useImageListCols = (theme: Theme, width?: number) => {
-
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isTablet = useMediaQuery(theme.breakpoints.down("md"));
   const isLarge = useMediaQuery(theme.breakpoints.down("lg"));
   const isExtraLarge = useMediaQuery(theme.breakpoints.down("xl"));
-  
+
   if (width) {
     if (width < 400) {
       return 2;
@@ -136,28 +135,46 @@ const ImageList = ({
               overflow: "hidden",
             }}
           >
-            <Image
-              src={item.urls.small}
-              alt={item.alt_description}
-              width={imgWidth || 200}
-              height={((imgWidth || 200) * item.height) / item.width}
-              style={{
-                width: "100%",
-                height: ((imgWidth || 200) * item.height) / item.width,
+            <Box
+              sx={{
+                cursor: "pointer",
+                ":hover": {
+                  filter: "brightness(0.75)",
+                },
               }}
-              className="hover:brightness-75 transition-[filter] cursor-pointer"
-              onClick={() => onSelect?.(item)}
-              blurDataURL={blurHashToBase64(
-                item.blur_hash,
-                imgWidth || 200,
-                ((imgWidth || 200) * item.height) / item.width
-              )}
-              placeholder="blur"
-            />
+            >
+              <Image
+                src={item.urls.small}
+                alt={item.alt_description}
+                width={imgWidth || 200}
+                height={((imgWidth || 200) * item.height) / item.width}
+                style={{
+                  width: "100%",
+                  height: ((imgWidth || 200) * item.height) / item.width,
+                }}
+                onClick={() => onSelect?.(item)}
+                blurDataURL={blurHashToBase64(
+                  item.blur_hash,
+                  imgWidth || 200,
+                  ((imgWidth || 200) * item.height) / item.width
+                )}
+                placeholder="blur"
+              />
+            </Box>
             <Link href={item.user?.links?.html}>
               <Typography
                 variant="body2"
-                className="absolute bottom-1 left-2 text-white hover:underline underline-offset-4 cursor-pointer"
+                sx={{
+                  position: "absolute",
+                  bottom: 4,
+                  left: 8,
+                  color: "white",
+                  cursor: "pointer",
+                  ":hover": {
+                    textDecoration: "underline",
+                    textUnderlineOffset: "4px",
+                  },
+                }}
               >
                 {item.user?.name}
               </Typography>
@@ -166,14 +183,28 @@ const ImageList = ({
         ))}
       </MuiImageList>
       {loading && (
-        <Box className="w-full flex justify-center mt-1">
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            mt: 4,
+          }}
+        >
           <Typography variant="body1" align="center">
             Loading...
           </Typography>
         </Box>
       )}
       {hasMore && allowLoadMore && loadMode === "button" && (
-        <Box className="w-full flex justify-center mt-1">
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            mt: 4,
+            width: "100%",
+          }}
+        >
           <Button
             disabled={loading}
             onClick={() => handleLoadMore?.()}
