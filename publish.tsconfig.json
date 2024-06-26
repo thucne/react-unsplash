@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "~/*": [
+        "./*"
+      ]
+    },
+    "outDir": "dist",
+    "declarationMap": true,
+    "declaration": true
+  },
+  "include": [
+    "components/ReactUnsplash/**/*.ts",
+    "components/ReactUnsplash/**/*.tsx",
+    "components/ReactUnsplash/custom.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
