@@ -19,7 +19,6 @@ const cache = createCache({
 interface ReactUnsplashProps extends Partial<Props> {
   theme?: Theme;
   onSelect: (image: any) => void;
-  width?: string | number;
 }
 
 const ReactUnsplash = ({
@@ -35,7 +34,10 @@ const ReactUnsplash = ({
   hasMore,
   open,
   onClose,
-  width
+  width,
+  height,
+  cols,
+  gap,
 }: ReactUnsplashProps) => {
   const defaultTheme = useTheme();
   return (
@@ -56,6 +58,9 @@ const ReactUnsplash = ({
             open={open}
             onClose={onClose}
             width={width}
+            height={height}
+            cols={cols}
+            gap={gap}
           />
         </ThemeProvider>
       </CacheProvider>

@@ -37,6 +37,10 @@ const Main = ({
   hasMore,
   allowLoadMore,
   loadMode,
+  cols,
+  gap,
+  height,
+  width,
 }: MainProps) => {
   const [search, setSearch] = useState("");
 
@@ -101,6 +105,10 @@ const Main = ({
               loading={loading}
               allowLoadMore={allowLoadMore}
               loadMode={loadMode}
+              cols={cols}
+              gap={gap}
+              height={height}
+              width={width}
             />
           </Grid>
         )}

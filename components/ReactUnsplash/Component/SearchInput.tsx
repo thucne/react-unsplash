@@ -57,7 +57,16 @@ const SearchInput = ({
             className="flex items-center gap-2"
           >
             {loading ? (
-              <CircularProgress color="primary" size={20} />
+              <CircularProgress
+                color="primary"
+                size={20}
+                sx={{
+                  svg: {
+                    width: 20,
+                    height: 20,
+                  },
+                }}
+              />
             ) : (
               <SearchIcon />
             )}
@@ -67,8 +76,8 @@ const SearchInput = ({
               width={search ? 20 : 87.63}
               height={20}
               style={{
-                objectFit: 'cover',
-                objectPosition: 'left',
+                objectFit: "cover",
+                objectPosition: "left",
                 height: 20,
                 width: search ? 20 : 87.63,
               }}

@@ -3,7 +3,7 @@ import React, { PropsWithChildren } from "react";
 import { Dialog, DialogProps } from "@mui/material";
 
 export interface PopUpWrapperProps extends DialogProps, PropsWithChildren {
-  width?: string | number;
+  width?: number;
 }
 
 const PopUpWrapper = (props: PopUpWrapperProps) => {

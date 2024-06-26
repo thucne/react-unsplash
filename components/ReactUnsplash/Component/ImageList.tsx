@@ -8,11 +8,46 @@ import {
   useMediaQuery,
   Box,
   Button,
+  Theme,
 } from "@mui/material";
 import Image from "next/image";
 import { useElementDimensions } from "./hooks";
 import Link from "next/link";
 import { blurHashToBase64 } from "./helpers";
+
+const useImageListCols = (theme: Theme, width?: number) => {
+
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.down("md"));
+  const isLarge = useMediaQuery(theme.breakpoints.down("lg"));
+  const isExtraLarge = useMediaQuery(theme.breakpoints.down("xl"));
+  
+  if (width) {
+    if (width < 400) {
+      return 2;
+    } else if (width < 600) {
+      return 3;
+    } else if (width < 800) {
+      return 4;
+    } else if (width < 1000) {
+      return 5;
+    } else {
+      return 6;
+    }
+  }
+
+  if (isMobile) {
+    return 2;
+  } else if (isTablet) {
+    return 4;
+  } else if (isLarge) {
+    return 6;
+  } else if (isExtraLarge) {
+    return 8;
+  } else {
+    return 6;
+  }
+};
 
 export interface ImageListProps {
   images: any[];
@@ -22,6 +57,10 @@ export interface ImageListProps {
   loading?: boolean;
   allowLoadMore?: boolean;
   loadMode?: "scroll" | "button";
+  cols?: number;
+  gap?: number;
+  height?: number;
+  width?: number;
 }
 
 const ImageList = ({
@@ -32,12 +71,16 @@ const ImageList = ({
   loading,
   allowLoadMore = true,
   loadMode = "scroll",
+  cols,
+  gap,
+  height,
+  width,
 }: ImageListProps) => {
   const imgRef = useRef<any>(null);
   const { width: imgWidth } = useElementDimensions(imgRef);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const observer = useRef<IntersectionObserver | null>(null);
+  const defaultCols = useImageListCols(theme, width);
 
   const lastItemRef = useCallback(
     (node: any) => {
@@ -80,8 +123,8 @@ const ImageList = ({
   }
 
   return (
-    <Box sx={{ height: 450, overflowY: "scroll" }}>
-      <MuiImageList variant="masonry" cols={isMobile ? 2 : 3} gap={8}>
+    <Box sx={{ height: height ?? 450, overflowY: "scroll" }}>
+      <MuiImageList variant="masonry" cols={cols ?? defaultCols} gap={gap ?? 8}>
         {images.map((item, idx) => (
           <ImageListItem
             key={item.id}

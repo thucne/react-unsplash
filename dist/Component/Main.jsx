@@ -3,7 +3,7 @@ import { Paper, Unstable_Grid2 as Grid, Typography, Divider, Box, LinearProgress
 import SearchInput from "./SearchInput";
 import ImageList from "./ImageList";
 var Main = function (_a) {
-    var _b = _a.loading, loading = _b === void 0 ? false : _b, _c = _a.handleClose, handleClose = _c === void 0 ? function () { } : _c, _d = _a.isPopUp, isPopUp = _d === void 0 ? false : _d, initValue = _a.initValue, onSearch = _a.onSearch, onCommit = _a.onCommit, _e = _a.images, images = _e === void 0 ? [] : _e, onSelect = _a.onSelect, handleLoadMore = _a.handleLoadMore, hasMore = _a.hasMore, allowLoadMore = _a.allowLoadMore, loadMode = _a.loadMode;
+    var _b = _a.loading, loading = _b === void 0 ? false : _b, _c = _a.handleClose, handleClose = _c === void 0 ? function () { } : _c, _d = _a.isPopUp, isPopUp = _d === void 0 ? false : _d, initValue = _a.initValue, onSearch = _a.onSearch, onCommit = _a.onCommit, _e = _a.images, images = _e === void 0 ? [] : _e, onSelect = _a.onSelect, handleLoadMore = _a.handleLoadMore, hasMore = _a.hasMore, allowLoadMore = _a.allowLoadMore, loadMode = _a.loadMode, cols = _a.cols, gap = _a.gap, height = _a.height, width = _a.width;
     var _f = useState(""), search = _f[0], setSearch = _f[1];
     useEffect(function () {
         if (initValue) {
@@ -40,7 +40,7 @@ var Main = function (_a) {
             </Typography>
           </Grid>)}
         {images.length > 0 && (<Grid xs={12} mb={1}>
-            <ImageList images={images} onSelect={onSelect} handleLoadMore={handleLoadMore} hasMore={hasMore} loading={loading} allowLoadMore={allowLoadMore} loadMode={loadMode}/>
+            <ImageList images={images} onSelect={onSelect} handleLoadMore={handleLoadMore} hasMore={hasMore} loading={loading} allowLoadMore={allowLoadMore} loadMode={loadMode} cols={cols} gap={gap} height={height} width={width}/>
           </Grid>)}
       </Grid>
     </Paper>);

@@ -19,10 +19,15 @@ var SearchInput = function (_a) {
             }
         }} InputProps={{
             startAdornment: (<InputAdornment position="start" sx={{ mr: 2 }} className="flex items-center gap-2">
-            {loading ? (<CircularProgress color="primary" size={20}/>) : (<SearchIcon />)}
+            {loading ? (<CircularProgress color="primary" size={20} sx={{
+                        svg: {
+                            width: 20,
+                            height: 20,
+                        },
+                    }}/>) : (<SearchIcon />)}
             <Image src={UnsplashFull} alt="Unsplash Logo" width={search ? 20 : 87.63} height={20} style={{
-                    objectFit: 'cover',
-                    objectPosition: 'left',
+                    objectFit: "cover",
+                    objectPosition: "left",
                     height: 20,
                     width: search ? 20 : 87.63,
                 }} className="transition-[width]"/>

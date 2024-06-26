@@ -7,7 +7,11 @@ export interface ImageListProps {
     loading?: boolean;
     allowLoadMore?: boolean;
     loadMode?: "scroll" | "button";
+    cols?: number;
+    gap?: number;
+    height?: number;
+    width?: number;
 }
-declare const _default: React.MemoExoticComponent<({ images, onSelect, handleLoadMore, hasMore, loading, allowLoadMore, loadMode, }: ImageListProps) => React.JSX.Element | null>;
+declare const _default: React.MemoExoticComponent<({ images, onSelect, handleLoadMore, hasMore, loading, allowLoadMore, loadMode, cols, gap, height, width, }: ImageListProps) => React.JSX.Element | null>;
 export default _default;
 //# sourceMappingURL=ImageList.d.ts.map

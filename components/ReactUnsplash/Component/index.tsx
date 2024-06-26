@@ -7,7 +7,6 @@ export interface Props extends Partial<PopUpWrapperProps>, Partial<MainProps> {
   displayMode: "normal" | "popup";
   onClose?: () => void;
   onSelect: (image: any) => void;
-  width?: string | number;
 }
 
 const Component = ({
@@ -23,9 +22,11 @@ const Component = ({
   handleLoadMore,
   hasMore,
   width,
+  height,
+  cols,
+  gap,
   ...rest
 }: Props) => {
-
   if (displayMode === "popup") {
     return (
       <PopUpWrapper open={open} onClose={onClose} width={width} {...rest}>
@@ -40,23 +41,33 @@ const Component = ({
           onSelect={onSelect}
           handleLoadMore={handleLoadMore}
           hasMore={hasMore}
+          cols={cols}
+          gap={gap}
+          height={height}
+          width={width}
         />
       </PopUpWrapper>
     );
   }
 
   return (
-    <Main
-      handleClose={onClose}
-      initValue={initValue}
-      onSearch={onSearch}
-      onCommit={onCommit}
-      loading={loading}
-      images={images}
-      onSelect={onSelect}
-      handleLoadMore={handleLoadMore}
-      hasMore={hasMore}
-    />
+    <div style={{ width: width ?? "100%" }}>
+      <Main
+        handleClose={onClose}
+        initValue={initValue}
+        onSearch={onSearch}
+        onCommit={onCommit}
+        loading={loading}
+        images={images}
+        onSelect={onSelect}
+        handleLoadMore={handleLoadMore}
+        hasMore={hasMore}
+        cols={cols}
+        gap={gap}
+        height={height}
+        width={width}
+      />
+    </div>
   );
 };
 

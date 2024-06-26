@@ -4,13 +4,51 @@ import Image from "next/image";
 import { useElementDimensions } from "./hooks";
 import Link from "next/link";
 import { blurHashToBase64 } from "./helpers";
+var useImageListCols = function (theme, width) {
+    var isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+    var isTablet = useMediaQuery(theme.breakpoints.down("md"));
+    var isLarge = useMediaQuery(theme.breakpoints.down("lg"));
+    var isExtraLarge = useMediaQuery(theme.breakpoints.down("xl"));
+    if (width) {
+        if (width < 400) {
+            return 2;
+        }
+        else if (width < 600) {
+            return 3;
+        }
+        else if (width < 800) {
+            return 4;
+        }
+        else if (width < 1000) {
+            return 5;
+        }
+        else {
+            return 6;
+        }
+    }
+    if (isMobile) {
+        return 2;
+    }
+    else if (isTablet) {
+        return 4;
+    }
+    else if (isLarge) {
+        return 6;
+    }
+    else if (isExtraLarge) {
+        return 8;
+    }
+    else {
+        return 6;
+    }
+};
 var ImageList = function (_a) {
-    var images = _a.images, onSelect = _a.onSelect, handleLoadMore = _a.handleLoadMore, hasMore = _a.hasMore, loading = _a.loading, _b = _a.allowLoadMore, allowLoadMore = _b === void 0 ? true : _b, _c = _a.loadMode, loadMode = _c === void 0 ? "scroll" : _c;
+    var images = _a.images, onSelect = _a.onSelect, handleLoadMore = _a.handleLoadMore, hasMore = _a.hasMore, loading = _a.loading, _b = _a.allowLoadMore, allowLoadMore = _b === void 0 ? true : _b, _c = _a.loadMode, loadMode = _c === void 0 ? "scroll" : _c, cols = _a.cols, gap = _a.gap, height = _a.height, width = _a.width;
     var imgRef = useRef(null);
     var imgWidth = useElementDimensions(imgRef).width;
     var theme = useTheme();
-    var isMobile = useMediaQuery(theme.breakpoints.down("sm"));
     var observer = useRef(null);
+    var defaultCols = useImageListCols(theme, width);
     var lastItemRef = useCallback(function (node) {
         if (loading)
             return;
@@ -38,8 +76,8 @@ var ImageList = function (_a) {
     if (!images || !Array.isArray(images) || !(images === null || images === void 0 ? void 0 : images.length)) {
         return null;
     }
-    return (<Box sx={{ height: 450, overflowY: "scroll" }}>
-      <MuiImageList variant="masonry" cols={isMobile ? 2 : 3} gap={8}>
+    return (<Box sx={{ height: height !== null && height !== void 0 ? height : 450, overflowY: "scroll" }}>
+      <MuiImageList variant="masonry" cols={cols !== null && cols !== void 0 ? cols : defaultCols} gap={gap !== null && gap !== void 0 ? gap : 8}>
         {images.map(function (item, idx) {
             var _a, _b, _c;
             return (<ImageListItem key={item.id} ref={getRef(idx)} sx={{

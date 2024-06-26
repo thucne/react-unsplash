@@ -12,6 +12,6 @@ export interface MainProps extends Partial<ImageListProps> {
     handleLoadMore?: () => void;
     hasMore?: boolean;
 }
-declare const Main: ({ loading, handleClose, isPopUp, initValue, onSearch, onCommit, images, onSelect, handleLoadMore, hasMore, allowLoadMore, loadMode, }: MainProps) => React.JSX.Element;
+declare const Main: ({ loading, handleClose, isPopUp, initValue, onSearch, onCommit, images, onSelect, handleLoadMore, hasMore, allowLoadMore, loadMode, cols, gap, height, width, }: MainProps) => React.JSX.Element;
 export default Main;
 //# sourceMappingURL=Main.d.ts.map

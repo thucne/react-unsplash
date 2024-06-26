@@ -1,7 +1,12 @@
 "use client";
 import { useState, useMemo, useEffect, useCallback } from "react";
 import ReactUnsplash from "./ReactUnsplash";
-import { Button, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import {
+  Button,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+} from "@mui/material";
 import { debounce } from "lodash";
 import useSWR from "swr";
 import Image from "next/image";
