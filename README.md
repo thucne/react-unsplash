@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### This is an React Unsplash accelerator
 
-## Getting Started
+React-Unsplash streamlines the process of integrating an Unsplash photo library into your projects, allowing you to focus on developing the features that matter most.
 
-First, run the development server:
+### Installation
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```terminal
+npm i react-unsplash
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```terminal
+yarn add react-unsplash
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```terminal
+pnpm add react-unsplash
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### How to use
 
-## Learn More
+```jsx
+import ReactUnsplash from 'react-unsplash'
+[...]
+<ReactUnsplash
+  initValue={search}
+  loading={isLoading}
+  onSearch={onSearch}
+  onCommit={onCommit}
+  onSelect={onSelect}
+  onClose={handleClose}
+  images={results}
+  handleLoadMore={handleNextPage}
+  hasMore={hasNext}
+  displayMode="normal"
+  cols={isMobile ? 2 : 3}
+/>
+[...]
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Options
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Name        | Value                                  | Default   | Required | Description                                                      |
+| ----------- | -------------------------------------- | --------- | -------- | ---------------------------------------------------------------- |
+| displayMode | normal \| popup                        | normal    | no       | While "popup" this component will be displayed in a pop-up modal |
+| initValue   | string                                 | ''        | no       | Init value that will invoke onSearch\|onCommit callbacks         |
+| onSearch    | (value: string) => void \| undefined   | undefined | no       | Callback function when input search changes                      |
+| onCommit    | ((value: string) => void) \| undefined | undefined | no       | Callback function when hitting enter                             |
+| onSelect | (image: any) => void | | yes | Callback function when a photo is clicked | 
+| images |  any[] | [] | yes | Should be [Unsplash images object](https://unsplash.com/documentation#response-16) | 
+| loading | boolean \|undefined | undefined | no | An indicator of loading state, when searching for photos | 
+| handleLoadMore | (() => void) \| undefined | undefined | no | Callback function when the last image is scrolled into view | 
+|hasMore | boolean \| undefined | undefined | no | If true, handleLoadMore will be fired when the last image is scrolled into view| 
+|open | boolean \| undefined | undefined | yes (only when displayMode is "popup") | When true, the popup is shown |
+|onClose |  (() => void) \| undefined | undefined | yes (only when displayMode is "popup") | Callback function when the popup is requested to close |
+| width | number \| undefined | undefined | no | Specify the width of the component | 
+| height | number \| undefined | undefined | no | Specify the height of the component | 
+| cols | number \| undefined | auto | no | Specify the number of images columns in the gallery |
+| gap | number \| undefined | 8(px) | no | Specify the gap between images |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
