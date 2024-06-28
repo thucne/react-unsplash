@@ -89,7 +89,7 @@ const Preview = () => {
     setPage(1);
     setSearch(value);
     setCurrentSearch(value);
-  }, []);
+  }, [currentSearch, isLoading]);
 
   const handleNextPage = () => {
     setPage((prev) => prev + 1);
