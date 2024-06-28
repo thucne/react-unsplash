@@ -6,7 +6,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Typography,
-  CssBaseline
+  CssBaseline,
 } from "@mui/material";
 import { debounce } from "lodash";
 import useSWR from "swr";
@@ -46,6 +46,7 @@ const Preview = () => {
   const [hasNext, setHasNext] = useState(false);
   const [selectedImage, setSelectedImage] = useState<any>(null);
   const [modeSwitch, setModeSwitch] = useState<"normal" | "popup">("normal");
+  const [currentSearch, setCurrentSearch] = useState("");
 
   const query = search
     ? new URLSearchParams({
@@ -81,8 +82,13 @@ const Preview = () => {
   };
 
   const searchNow = useCallback((value: string) => {
-    setSearch(value);
+    if (isLoading) return;
+
+    if (value === currentSearch) return;
+
     setPage(1);
+    setSearch(value);
+    setCurrentSearch(value);
   }, []);
 
   const handleNextPage = () => {

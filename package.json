@@ -1,13 +1,17 @@
 {
   "name": "react-unsplash",
-  "version": "0.1.23",
+  "version": "0.1.24",
   "private": false,
   "main": "dist/index.jsx",
-  "types": "dist/index.d.ts", 
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "README.md"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thucne/react-unsplash.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
