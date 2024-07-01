@@ -88,7 +88,7 @@ var SearchInput = function (_a) {
                 fontSize: "1.2rem",
                 paddingLeft: 0,
                 input: {
-                    width: "auto",
+                // width: "auto",
                 },
             },
         }}/>);

@@ -19,7 +19,7 @@ var Component = function (_a) {
         <Main handleClose={onClose} initValue={initValue} onSearch={onSearch} onCommit={onCommit} loading={loading} isPopUp={true} images={images} onSelect={onSelect} handleLoadMore={handleLoadMore} hasMore={hasMore} cols={cols} gap={gap} height={height} width={width}/>
       </PopUpWrapper>);
     }
-    return (<div style={{ width: width !== null && width !== void 0 ? width : "100%" }}>
+    return (<div style={{ width: width !== null && width !== void 0 ? width : "100%", maxWidth: "100%", position: "relative" }}>
       <Main handleClose={onClose} initValue={initValue} onSearch={onSearch} onCommit={onCommit} loading={loading} images={images} onSelect={onSelect} handleLoadMore={handleLoadMore} hasMore={hasMore} cols={cols} gap={gap} height={height} width={width}/>
     </div>);
 };

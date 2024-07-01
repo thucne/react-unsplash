@@ -151,7 +151,7 @@ const SearchInput = ({
           fontSize: "1.2rem",
           paddingLeft: 0,
           input: {
-            width: "auto",
+            // width: "auto",
           },
         },
       }}

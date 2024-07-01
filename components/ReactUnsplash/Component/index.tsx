@@ -51,7 +51,9 @@ const Component = ({
   }
 
   return (
-    <div style={{ width: width ?? "100%" }}>
+    <div
+      style={{ width: width ?? "100%", maxWidth: "100%", position: "relative" }}
+    >
       <Main
         handleClose={onClose}
         initValue={initValue}

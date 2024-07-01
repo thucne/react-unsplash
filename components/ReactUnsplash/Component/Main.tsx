@@ -57,7 +57,7 @@ const Main = ({
   };
 
   return (
-    <Paper variant="outlined" sx={{ width: "100%" }}>
+    <Paper variant="outlined" sx={{ width: width ?? "100%", maxWidth: "100%" }}>
       <Grid container spacing={1} disableEqualOverflow>
         <Grid xs={12}>
           <Box pt={1} px={1}>
