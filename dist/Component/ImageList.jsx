@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useElementDimensions } from "./hooks";
 import Link from "next/link";
 import { blurHashToBase64 } from "./helpers";
+import BrokenImage from "./image-broken.jpg";
 var useImageListCols = function (theme, width) {
     var isMobile = useMediaQuery(theme.breakpoints.down("sm"));
     var isTablet = useMediaQuery(theme.breakpoints.down("md"));
@@ -79,7 +80,7 @@ var ImageList = function (_a) {
     return (<Box sx={{ height: height !== null && height !== void 0 ? height : 450, overflowY: "scroll" }}>
       <MuiImageList variant="masonry" cols={cols !== null && cols !== void 0 ? cols : defaultCols} gap={gap !== null && gap !== void 0 ? gap : 8}>
         {images.map(function (item, idx) {
-            var _a, _b, _c;
+            var _a, _b, _c, _d, _e;
             return (<ImageListItem key={item.id} ref={getRef(idx)} sx={{
                     height: "".concat(((imgWidth || 200) * item.height) / item.width, "px !important"),
                     overflow: "hidden",
@@ -90,14 +91,15 @@ var ImageList = function (_a) {
                         filter: "brightness(0.75)",
                     },
                 }}>
-              <Image src={item.urls.small} alt={item.alt_description} width={imgWidth || 200} height={((imgWidth || 200) * item.height) / item.width} style={{
+              <Image src={(_a = item.urls.small) !== null && _a !== void 0 ? _a : BrokenImage} alt={item.alt_description} width={imgWidth || 200} height={((imgWidth || 200) * item.height) / item.width} style={{
                     width: "100%",
                     height: ((imgWidth || 200) * item.height) / item.width,
+                    objectFit: "contain",
                 }} onClick={function () { return onSelect === null || onSelect === void 0 ? void 0 : onSelect(item); }} blurDataURL={(item === null || item === void 0 ? void 0 : item.blur_hash)
                     ? blurHashToBase64(item.blur_hash, imgWidth || 200, ((imgWidth || 200) * item.height) / item.width)
                     : undefined} placeholder={(item === null || item === void 0 ? void 0 : item.blur_hash) ? "blur" : "empty"}/>
             </Box>
-            <Link href={(_b = (_a = item.user) === null || _a === void 0 ? void 0 : _a.links) === null || _b === void 0 ? void 0 : _b.html}>
+            <Link href={(_d = (_c = (_b = item.user) === null || _b === void 0 ? void 0 : _b.links) === null || _c === void 0 ? void 0 : _c.html) !== null && _d !== void 0 ? _d : '#'}>
               <Typography variant="body2" sx={{
                     position: "absolute",
                     bottom: 4,
@@ -109,7 +111,7 @@ var ImageList = function (_a) {
                         textUnderlineOffset: "4px",
                     },
                 }}>
-                {(_c = item.user) === null || _c === void 0 ? void 0 : _c.name}
+                {(_e = item.user) === null || _e === void 0 ? void 0 : _e.name}
               </Typography>
             </Link>
           </ImageListItem>);

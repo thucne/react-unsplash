@@ -18,7 +18,7 @@ export interface MainProps extends Partial<ImageListProps> {
   initValue?: string;
   onSearch?: (value: string) => void;
   onCommit?: (value: string) => void;
-  images?: any[];
+  images?: ImageListProps['images'];
   onSelect: (image: any) => void;
   handleLoadMore?: () => void;
   hasMore?: boolean;

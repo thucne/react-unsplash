@@ -19,6 +19,7 @@ import {
   StyledEngineProvider,
 } from "@mui/material/styles";
 import createCache from "@emotion/cache";
+import { UnsplashImage } from "./ReactUnsplash/Component/ImageList";
 
 const fetcher = (url: string) =>
   fetch(url, { cache: "force-cache" }).then((res) => res.json());
@@ -157,7 +158,7 @@ const Preview = () => {
                 onCommit={onCommit}
                 onSelect={onSelect}
                 onClose={handleClose}
-                images={results}
+                images={results as UnsplashImage}
                 handleLoadMore={handleNextPage}
                 hasMore={hasNext}
                 displayMode={modeSwitch}
