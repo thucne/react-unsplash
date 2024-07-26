@@ -153,12 +153,16 @@ const ImageList = ({
                   height: ((imgWidth || 200) * item.height) / item.width,
                 }}
                 onClick={() => onSelect?.(item)}
-                blurDataURL={blurHashToBase64(
-                  item.blur_hash,
-                  imgWidth || 200,
-                  ((imgWidth || 200) * item.height) / item.width
-                )}
-                placeholder="blur"
+                blurDataURL={
+                  item?.blur_hash
+                    ? blurHashToBase64(
+                        item.blur_hash,
+                        imgWidth || 200,
+                        ((imgWidth || 200) * item.height) / item.width
+                      )
+                    : undefined
+                }
+                placeholder={item?.blur_hash ? "blur" : "empty"}
               />
             </Box>
             <Link href={item.user?.links?.html}>

@@ -93,7 +93,9 @@ var ImageList = function (_a) {
               <Image src={item.urls.small} alt={item.alt_description} width={imgWidth || 200} height={((imgWidth || 200) * item.height) / item.width} style={{
                     width: "100%",
                     height: ((imgWidth || 200) * item.height) / item.width,
-                }} onClick={function () { return onSelect === null || onSelect === void 0 ? void 0 : onSelect(item); }} blurDataURL={blurHashToBase64(item.blur_hash, imgWidth || 200, ((imgWidth || 200) * item.height) / item.width)} placeholder="blur"/>
+                }} onClick={function () { return onSelect === null || onSelect === void 0 ? void 0 : onSelect(item); }} blurDataURL={(item === null || item === void 0 ? void 0 : item.blur_hash)
+                    ? blurHashToBase64(item.blur_hash, imgWidth || 200, ((imgWidth || 200) * item.height) / item.width)
+                    : undefined} placeholder={(item === null || item === void 0 ? void 0 : item.blur_hash) ? "blur" : "empty"}/>
             </Box>
             <Link href={(_b = (_a = item.user) === null || _a === void 0 ? void 0 : _a.links) === null || _b === void 0 ? void 0 : _b.html}>
               <Typography variant="body2" sx={{

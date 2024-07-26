@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 import {
   Paper,
@@ -43,7 +43,7 @@ const Main = ({
   width,
 }: MainProps) => {
   const [search, setSearch] = useState("");
-
+  
   useEffect(() => {
     if (initValue) {
       setSearch(initValue);
