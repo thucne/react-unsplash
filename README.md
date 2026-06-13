@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://unsplash.com" target="_blank">
-    <img src="https://images.ctfassets.net/hrltx12pl8hq/XhFCxvXRUAXqFjxv7DMjq/f74c9b9e74f6e2c36c66dcd5c9f00c6f/Unsplash_Logo.svg" alt="Unsplash" height="40" />
+  <a href="https://react-unsplash.thucde.dev/" target="_blank">
+    <img src="https://raw.githubusercontent.com/thucne/react-unsplash/main/public/unsplash-logo.svg" alt="Unsplash" height="40" />
   </a>
 </p>
 
@@ -11,6 +11,7 @@
 </p>
 
 <p align="center">
+  <a href="https://react-unsplash.thucde.dev/"><strong>Live Demo</strong></a> ·
   <a href="https://www.npmjs.com/package/react-unsplash"><img src="https://img.shields.io/npm/v/react-unsplash?style=flat-square&color=18181b" alt="npm version" /></a>
   <a href="https://www.npmjs.com/package/react-unsplash"><img src="https://img.shields.io/npm/dm/react-unsplash?style=flat-square&color=18181b" alt="npm downloads" /></a>
   <a href="https://github.com/thucne/react-unsplash/blob/main/LICENSE"><img src="https://img.shields.io/github/license/thucne/react-unsplash?style=flat-square&color=18181b" alt="license" /></a>
