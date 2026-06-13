@@ -1,1 +1,0 @@
-{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../components/ReactUnsplash/index.tsx"],"names":[],"mappings":"AACA,OAAO,KAAK,MAAM,OAAO,CAAC;AAC1B,OAAkB,EAAE,KAAK,EAAE,MAAM,aAAa,CAAC;AAC/C,UAAU,kBAAmB,SAAQ,OAAO,CAAC,KAAK,CAAC;IACjD,QAAQ,EAAE,CAAC,KAAK,EAAE,GAAG,KAAK,IAAI,CAAC;CAChC;AAED,QAAA,MAAM,aAAa,iJAgBhB,kBAAkB,sBAoBpB,CAAC;AAEF,eAAe,aAAa,CAAC"}

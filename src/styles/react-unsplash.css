@@ -1,0 +1,389 @@
+/* ============================================================
+   react-unsplash — Default Stylesheet
+   
+   CSS Variables are automatically compatible with shadcn/ui.
+   If your project uses shadcn, no extra configuration needed.
+   
+   To override in non-shadcn projects, set --ru-* variables:
+   
+   .react-unsplash {
+     --ru-primary: #6366f1;
+     --ru-radius: 0.75rem;
+   }
+   ============================================================ */
+
+/* ---- Root tokens (map to shadcn variable names) ---- */
+.react-unsplash {
+  --ru-bg:          var(--background, #ffffff);
+  --ru-fg:          var(--foreground, #09090b);
+  --ru-border:      var(--border, #e4e4e7);
+  --ru-input:       var(--input, #e4e4e7);
+  --ru-ring:        var(--ring, #18181b);
+  --ru-primary:     var(--primary, #18181b);
+  --ru-primary-fg:  var(--primary-foreground, #fafafa);
+  --ru-muted:       var(--muted, #f4f4f5);
+  --ru-muted-fg:    var(--muted-foreground, #71717a);
+  --ru-accent:      var(--accent, #f4f4f5);
+  --ru-accent-fg:   var(--accent-foreground, #18181b);
+  --ru-radius:      var(--radius, 0.5rem);
+
+  /* Component-specific */
+  --ru-shadow:      0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --ru-shadow-lg:   0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --ru-transition:  150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --ru-overlay-bg:  rgba(0, 0, 0, 0.45);
+  --ru-image-hover: brightness(0.8);
+}
+
+/* ---- Dark mode — works with shadcn .dark class ---- */
+.dark .react-unsplash,
+[data-theme='dark'] .react-unsplash {
+  --ru-bg:         var(--background, #09090b);
+  --ru-fg:         var(--foreground, #fafafa);
+  --ru-border:     var(--border, #27272a);
+  --ru-input:      var(--input, #27272a);
+  --ru-ring:       var(--ring, #d4d4d8);
+  --ru-primary:    var(--primary, #fafafa);
+  --ru-primary-fg: var(--primary-foreground, #09090b);
+  --ru-muted:      var(--muted, #27272a);
+  --ru-muted-fg:   var(--muted-foreground, #a1a1aa);
+  --ru-accent:     var(--accent, #27272a);
+  --ru-accent-fg:  var(--accent-foreground, #fafafa);
+}
+
+/* ============================================================
+   Root Container
+   ============================================================ */
+.react-unsplash {
+  box-sizing: border-box;
+  font-family: inherit;
+  color: var(--ru-fg);
+  background-color: var(--ru-bg);
+  border: 1px solid var(--ru-border);
+  border-radius: var(--ru-radius);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+}
+
+.react-unsplash *,
+.react-unsplash *::before,
+.react-unsplash *::after {
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   Search Input Area
+   ============================================================ */
+.ru-search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--ru-border);
+  background-color: var(--ru-bg);
+  position: relative;
+}
+
+.ru-search-icon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--ru-muted-fg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ru-unsplash-logo {
+  flex-shrink: 0;
+  height: 1.25rem;
+  overflow: hidden;
+  transition: width var(--ru-transition);
+  display: flex;
+  align-items: center;
+}
+
+.ru-unsplash-logo img,
+.ru-unsplash-logo svg {
+  height: 1.25rem;
+  width: auto;
+  max-width: 90px;
+  object-fit: contain;
+  object-position: left center;
+  display: block;
+}
+
+.ru-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1rem;
+  color: var(--ru-fg);
+  padding: 0.375rem 0;
+  min-width: 0;
+  line-height: 1.5;
+}
+
+.ru-search-input::placeholder {
+  color: var(--ru-muted-fg);
+}
+
+.ru-search-input:focus {
+  outline: none;
+}
+
+.ru-esc-badge {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--ru-border);
+  border-radius: calc(var(--ru-radius) * 0.75);
+  background-color: var(--ru-muted);
+  color: var(--ru-muted-fg);
+  cursor: pointer;
+  user-select: none;
+  transition: border-color var(--ru-transition), color var(--ru-transition);
+}
+
+.ru-esc-badge:hover,
+.ru-esc-badge:focus {
+  border-color: var(--ru-primary);
+  color: var(--ru-fg);
+  outline: none;
+}
+
+/* ============================================================
+   Loading Bar
+   ============================================================ */
+.ru-loading-bar-track {
+  height: 2px;
+  background-color: var(--ru-muted);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.ru-loading-bar-fill {
+  height: 100%;
+  background-color: var(--ru-primary);
+  animation: ru-indeterminate 1.5s infinite ease-in-out;
+  transform-origin: left;
+}
+
+@keyframes ru-indeterminate {
+  0%   { transform: translateX(-100%) scaleX(0.3); }
+  50%  { transform: translateX(0%)    scaleX(0.6); }
+  100% { transform: translateX(100%) scaleX(0.3); }
+}
+
+@keyframes ru-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.ru-loading-bar-hidden {
+  visibility: hidden;
+}
+
+/* ============================================================
+   Image Grid (Masonry via CSS columns)
+   ============================================================ */
+.ru-image-grid-scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+  /* Custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--ru-border) transparent;
+}
+
+.ru-image-grid-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ru-image-grid-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ru-image-grid-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--ru-border);
+  border-radius: 3px;
+}
+
+.ru-image-grid {
+  column-count: var(--ru-cols, 3);
+  column-gap: var(--ru-gap, 8px);
+  padding: var(--ru-gap, 8px);
+}
+
+/* Each image item breaks column flow correctly */
+.ru-image-item {
+  break-inside: avoid;
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(var(--ru-radius) * 0.5);
+  margin-bottom: var(--ru-gap, 8px);
+  cursor: pointer;
+  background-color: var(--ru-muted);
+}
+
+.ru-image-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: filter var(--ru-transition);
+}
+
+.ru-image-item:hover img {
+  filter: var(--ru-image-hover);
+}
+
+/* ---- Author overlay ---- */
+.ru-author-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem 0.5rem 0.375rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity var(--ru-transition);
+  pointer-events: none;
+}
+
+.ru-image-item:hover .ru-author-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ru-author-link {
+  display: inline-block;
+  font-size: 0.75rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  pointer-events: auto;
+}
+
+.ru-author-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  color: #fff;
+}
+
+/* ---- Custom overlay slot ---- */
+.ru-image-custom-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ============================================================
+   Empty / No Results State
+   ============================================================ */
+.ru-empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  color: var(--ru-muted-fg);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* ============================================================
+   Loading State (inline, below grid)
+   ============================================================ */
+.ru-loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  color: var(--ru-muted-fg);
+  font-size: 0.875rem;
+}
+
+/* ============================================================
+   Load More Button
+   ============================================================ */
+.ru-load-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+}
+
+.ru-load-more-btn {
+  width: 100%;
+  padding: 0.5rem 1.25rem;
+  border: 1px solid var(--ru-border);
+  border-radius: var(--ru-radius);
+  background-color: transparent;
+  color: var(--ru-fg);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color var(--ru-transition), color var(--ru-transition);
+}
+
+.ru-load-more-btn:hover:not(:disabled) {
+  background-color: var(--ru-accent);
+  color: var(--ru-accent-fg);
+}
+
+.ru-load-more-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Invisible sentinel for IntersectionObserver */
+.ru-scroll-sentinel {
+  height: 1px;
+  width: 100%;
+  margin-top: -1px;
+  pointer-events: none;
+}
+
+/* ============================================================
+   Popup / Dialog
+   ============================================================ */
+.ru-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--ru-overlay-bg);
+  padding: 1rem;
+  animation: ru-backdrop-in var(--ru-transition) ease;
+}
+
+@keyframes ru-backdrop-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.ru-dialog-panel {
+  position: relative;
+  background-color: var(--ru-bg);
+  border: 1px solid var(--ru-border);
+  border-radius: var(--ru-radius);
+  box-shadow: var(--ru-shadow-lg);
+  width: 100%;
+  max-width: min(720px, 100%);
+  max-height: min(85vh, 100%);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: ru-dialog-in var(--ru-transition) ease;
+}
+
+@keyframes ru-dialog-in {
+  from { opacity: 0; transform: scale(0.97) translateY(4px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);   }
+}
