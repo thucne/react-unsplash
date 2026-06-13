@@ -1,6 +1,6 @@
 {
   "name": "react-unsplash",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A highly customizable React component library for integrating Unsplash photo picker into your projects. Supports shadcn/Tailwind, compound components, render props, and full TypeScript. Demo: https://react-unsplash.thucde.dev/",
   "keywords": [
     "react",
