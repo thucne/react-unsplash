@@ -337,6 +337,88 @@ const handleSearch = async (query: string) => {
 
 Get your free API key at [unsplash.com/developers](https://unsplash.com/developers).
 
+### React App (Vite, CRA, etc.) + TanStack Query
+
+**1. Create your fetch function**:
+```ts
+// src/api/unsplash.ts
+import type { UnsplashPhoto } from 'react-unsplash';
+
+interface UnsplashResponse {
+  results: UnsplashPhoto[];
+  total_pages: number;
+}
+
+export async function fetchUnsplashPhotos({
+  query,
+  page = 1,
+}: {
+  query: string;
+  page?: number;
+}): Promise<UnsplashResponse> {
+  if (!query) return { results: [], total_pages: 0 };
+  
+  // NOTE: In production, route requests through your own backend to hide your Access Key.
+  const response = await fetch(
+    `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&page=${page}&per_page=20`,
+    {
+      headers: {
+        Authorization: `Client-ID ${import.meta.env.VITE_UNSPLASH_ACCESS_KEY}`,
+      },
+    }
+  );
+  
+  if (!response.ok) throw new Error('Failed to fetch from Unsplash');
+  return response.json();
+}
+```
+
+**2. Implement in your component**:
+```tsx
+import React, { useState } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import ReactUnsplash from 'react-unsplash';
+import { fetchUnsplashPhotos } from './api/unsplash';
+
+export function PhotoPicker() {
+  const [search, setSearch] = useState('');
+
+  // Set up useInfiniteQuery for pagination/infinite scroll
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+  } = useInfiniteQuery({
+    queryKey: ['unsplashPhotos', search],
+    queryFn: ({ pageParam = 1 }) => fetchUnsplashPhotos({ query: search, page: pageParam }),
+    getNextPageParam: (lastPage, allPages) => {
+      const nextPage = allPages.length + 1;
+      return nextPage <= lastPage.total_pages ? nextPage : undefined;
+    },
+    initialPageParam: 1,
+    enabled: !!search,
+  });
+
+  // Flatten infinite query pages
+  const photos = data?.pages.flatMap((page) => page.results) || [];
+
+  return (
+    <ReactUnsplash
+      images={photos}
+      loading={isLoading || isFetchingNextPage}
+      onSearch={(v) => setSearch(v)}
+      onCommit={(v) => setSearch(v)}
+      hasMore={hasNextPage}
+      handleLoadMore={fetchNextPage}
+      loadMode="scroll" // use "scroll" for infinite scroll, or "button"
+      onSelect={(photo) => console.log('Selected:', photo)}
+    />
+  );
+}
+```
+
 ---
 
 ## 🔄 Migration Guide: v0.x → v1.0
