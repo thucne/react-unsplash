@@ -124,7 +124,7 @@ const Preview = () => {
         </div>
 
         {/* The library component */}
-        <div className="w-full rounded-xl overflow-hidden border border-border bg-card shadow-sm">
+        <div className="w-full">
           <ReactUnsplash
             open={open}
             loading={isLoading}
