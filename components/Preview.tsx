@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useMemo, useCallback } from "react";
 import ReactUnsplash from "../src/components/ReactUnsplash";
 import type { UnsplashPhoto } from "../src/components/ReactUnsplash/types";
@@ -84,137 +85,136 @@ const Preview = () => {
   const onSelect = (photo: UnsplashPhoto) => setSelectedImage(photo);
 
   return (
-    <div className="w-screen flex pb-10 pt-4 px-4 justify-center">
-      <div className="w-full max-w-[720px] flex items-center flex-col gap-4">
-        {/* Mode toggle */}
-        <div className="flex items-center gap-2 text-sm font-medium">
-          <span className="text-gray-600">Display Mode:</span>
-          {(["normal", "popup"] as const).map((m) => (
+    <div className="w-full flex pb-12 pt-4 px-4 justify-center">
+      <div className="w-full max-w-[700px] flex flex-col gap-6">
+        {/* Controls row */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-6">
+          {/* Mode toggle */}
+          <div className="flex items-center gap-2 text-sm font-medium">
+            <span className="text-muted-foreground mr-1">Display Mode:</span>
+            <div className="inline-flex rounded-lg border border-border p-0.5 bg-muted/40">
+              {(["normal", "popup"] as const).map((m) => (
+                <button
+                  key={m}
+                  onClick={() => {
+                    setModeSwitch(m);
+                    if (m === "normal") setOpen(false);
+                  }}
+                  className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all duration-200 capitalize cursor-pointer ${
+                    modeSwitch === m
+                      ? "bg-background text-foreground shadow-sm"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {m}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Popup trigger */}
+          {modeSwitch === "popup" && (
             <button
-              key={m}
-              onClick={() => setModeSwitch(m)}
-              style={{
-                padding: "0.35rem 0.9rem",
-                borderRadius: "0.5rem",
-                border: "1px solid",
-                borderColor: modeSwitch === m ? "#18181b" : "#e4e4e7",
-                backgroundColor: modeSwitch === m ? "#18181b" : "transparent",
-                color: modeSwitch === m ? "#fafafa" : "#18181b",
-                cursor: "pointer",
-                textTransform: "capitalize",
-              }}
+              onClick={() => setOpen(true)}
+              className="px-4 py-2 rounded-lg border border-border bg-primary text-primary-foreground hover:bg-primary/90 font-medium text-sm transition-colors shadow-sm cursor-pointer"
             >
-              {m}
+              Open Photo Picker
             </button>
-          ))}
+          )}
         </div>
 
-        {/* Popup trigger */}
-        {modeSwitch === "popup" && (
-          <button
-            onClick={() => setOpen(true)}
-            style={{
-              width: "100%",
-              padding: "0.5rem 1rem",
-              borderRadius: "0.5rem",
-              border: "1px solid #18181b",
-              backgroundColor: "#18181b",
-              color: "#fafafa",
-              cursor: "pointer",
-              fontSize: "0.875rem",
-            }}
-          >
-            Open Photo Picker
-          </button>
-        )}
-
         {/* The library component */}
-        <ReactUnsplash
-          open={open}
-          loading={isLoading}
-          onSearch={(v) => debounceSearch(v)}
-          onCommit={searchNow}
-          onSelect={onSelect}
-          onClose={handleClose}
-          images={results}
-          handleLoadMore={handleNextPage}
-          hasMore={hasNext}
-          displayMode={modeSwitch}
-          width={700}
-          // Demonstrate renderImage with next/image
-          renderImage={(props) => (
-            <Image
-              src={props.src}
-              alt={props.alt}
-              width={props.width}
-              height={props.height}
-              style={props.style}
-              onClick={props.onClick}
-              placeholder={props.placeholder ? "blur" : "empty"}
-              blurDataURL={props.placeholder}
-              unoptimized
-            />
-          )}
-          // Demonstrate renderLink with next/link
-          renderLink={(props) => (
-            <NextLink
-              href={props.href}
-              target={props.target}
-              rel={props.rel}
-              className={props.className}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {props.children}
-            </NextLink>
-          )}
-        />
+        <div className="w-full rounded-xl overflow-hidden border border-border bg-card shadow-sm">
+          <ReactUnsplash
+            open={open}
+            loading={isLoading}
+            onSearch={(v) => debounceSearch(v)}
+            onCommit={searchNow}
+            onSelect={onSelect}
+            onClose={handleClose}
+            images={results}
+            handleLoadMore={handleNextPage}
+            hasMore={hasNext}
+            displayMode={modeSwitch}
+            // Demonstrate renderImage with next/image
+            renderImage={(props) => (
+              <Image
+                src={props.src}
+                alt={props.alt}
+                width={props.width}
+                height={props.height}
+                style={props.style}
+                onClick={props.onClick}
+                placeholder={props.placeholder ? "blur" : "empty"}
+                blurDataURL={props.placeholder}
+                unoptimized
+              />
+            )}
+            // Demonstrate renderLink with next/link
+            renderLink={(props) => (
+              <NextLink
+                href={props.href}
+                target={props.target}
+                rel={props.rel}
+                className={props.className}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {props.children}
+              </NextLink>
+            )}
+          />
+        </div>
 
         {/* Selected image preview */}
         {selectedImage && (
-          <div
-            style={{
-              marginTop: "1rem",
-              border: "1px solid #e4e4e7",
-              borderRadius: "0.5rem",
-              overflow: "hidden",
-              width: "100%",
-            }}
-          >
-            <Image
-              src={selectedImage.urls.regular}
-              alt={selectedImage.alt_description ?? ""}
-              width={700}
-              height={Math.round(
-                (700 * selectedImage.height) / selectedImage.width
-              )}
-              style={{ width: "100%", height: "auto", cursor: "pointer" }}
-              onClick={() => setSelectedImage(null)}
-              blurDataURL={
-                selectedImage.blur_hash
-                  ? blurHashToDataURL(selectedImage.blur_hash)
-                  : undefined
-              }
-              placeholder={selectedImage.blur_hash ? "blur" : "empty"}
-              unoptimized
-            />
-            <div
-              style={{
-                padding: "0.5rem 0.75rem",
-                fontSize: "0.75rem",
-                color: "#71717a",
-                borderTop: "1px solid #e4e4e7",
-              }}
-            >
-              Photo by{" "}
-              <a
-                href={selectedImage.user.links.html}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ textDecoration: "underline" }}
+          <div className="mt-4 border border-border rounded-xl overflow-hidden w-full bg-card shadow-sm hover:shadow-md transition-shadow">
+            <div className="relative group overflow-hidden">
+              <Image
+                src={selectedImage.urls.regular}
+                alt={selectedImage.alt_description ?? ""}
+                width={700}
+                height={Math.round(
+                  (700 * selectedImage.height) / selectedImage.width
+                )}
+                style={{ width: "100%", height: "auto" }}
+                className="transition-transform duration-300 group-hover:scale-[1.005] cursor-pointer"
+                onClick={() => setSelectedImage(null)}
+                blurDataURL={
+                  selectedImage.blur_hash
+                    ? blurHashToDataURL(selectedImage.blur_hash)
+                    : undefined
+                }
+                placeholder={selectedImage.blur_hash ? "blur" : "empty"}
+                unoptimized
+              />
+            </div>
+            <div className="px-4 py-3 text-xs text-muted-foreground border-t border-border bg-muted/10 flex justify-between items-center">
+              <span>
+                Photo by{" "}
+                <a
+                  href={selectedImage.user.links.html}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-foreground hover:underline"
+                >
+                  {selectedImage.user.name}
+                </a>{" "}
+                on{" "}
+                <a
+                  href="https://unsplash.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-foreground hover:underline"
+                >
+                  Unsplash
+                </a>
+              </span>
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="text-muted-foreground hover:text-foreground font-medium transition-colors cursor-pointer"
               >
-                {selectedImage.user.name}
-              </a>{" "}
-              on Unsplash · Click to deselect
+                Deselect
+              </button>
             </div>
           </div>
         )}

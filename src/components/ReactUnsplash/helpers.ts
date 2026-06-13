@@ -40,6 +40,7 @@ export function blurHashToDataURL(
  * Compute responsive column count based on container width.
  */
 export function getResponsiveCols(containerWidth: number): number {
+  if (containerWidth <= 0) return 3;
   if (containerWidth < 320) return 1;
   if (containerWidth < 480) return 2;
   if (containerWidth < 720) return 3;

@@ -34,7 +34,7 @@ function ImageItem({ photo, containerWidth, isLast }: ImageItemProps) {
   const { onSelect, renderImage, renderLink, slots, classNames, hasMore, handleLoadMore, loadMode, loading } =
     useUnsplashContext();
 
-  const itemWidth = containerWidth || 200;
+  const itemWidth = containerWidth > 0 ? containerWidth : 200;
   const itemHeight = photo.height && photo.width
     ? Math.round((itemWidth * photo.height) / photo.width)
     : itemWidth;
@@ -169,7 +169,7 @@ export function UnsplashGrid({ cols, gap, height, className }: UnsplashGridProps
           <ImageItem
             key={photo.id}
             photo={photo}
-            containerWidth={Math.floor(containerWidth / resolvedCols) - resolvedGap}
+            containerWidth={containerWidth > 0 ? Math.floor(containerWidth / resolvedCols) - resolvedGap : 0}
             isLast={idx === images.length - 1}
           />
         ))}
